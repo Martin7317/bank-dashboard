@@ -1,13 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
 const router = useRouter();
 
+const [mobile, setMobile] = useState(false);
+
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+
+useEffect(() => {
+const handleResize = () => {
+setMobile(window.innerWidth < 900);
+};
+
+handleResize();
+
+window.addEventListener("resize", handleResize);
+
+return () =>
+window.removeEventListener(
+"resize",
+handleResize
+);
+}, []);
 
 const handleLogin = () => {
 if (email && password) {
@@ -18,165 +36,485 @@ alert("Veuillez remplir les champs");
 };
 
 return (
-<main className="min-h-screen bg-gradient-to-br from-[#020817] via-[#07152d] to-[#020817] flex items-center justify-center p-4 md:p-8 overflow-hidden">
+<main
+style={{
+minHeight: "100vh",
+background:
+"linear-gradient(135deg,#020817,#07152d,#020817)",
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+padding: mobile ? "15px" : "40px",
+fontFamily:
+"-apple-system,BlinkMacSystemFont,sans-serif",
+}}
+>
+<div
+style={{
+width: "100%",
+maxWidth: "1400px",
+background: "#071120",
+borderRadius: mobile ? "20px" : "35px",
+overflow: "hidden",
+border: "1px solid #16233d",
+boxShadow:
+"0 0 80px rgba(0,0,0,0.5)",
+display: "flex",
+flexDirection: mobile
+? "column"
+: "row",
+}}
+>
+{/* LEFT */}
+<div
+style={{
+flex: 1,
+background:
+"linear-gradient(180deg,#02122c,#081a38)",
+padding: mobile
+? "35px 25px"
+: "70px",
+color: "white",
+display: "flex",
+flexDirection: "column",
+justifyContent: "space-between",
+position: "relative",
+}}
+>
+<div
+style={{
+position: "absolute",
+width: "300px",
+height: "300px",
+borderRadius: "50%",
+background:
+"rgba(37,99,235,0.15)",
+filter: "blur(100px)",
+top: "-80px",
+left: "-80px",
+}}
+/>
 
-{/* CARD */}
-<div className="w-full max-w-7xl rounded-[35px] overflow-hidden border border-[#16233d] shadow-[0_0_80px_rgba(0,0,0,0.5)] bg-[#071120] flex flex-col lg:flex-row">
-
-{/* LEFT PANEL */}
-<div className="w-full lg:w-1/2 bg-gradient-to-b from-[#02122c] to-[#081a38] p-8 md:p-14 flex flex-col justify-between relative">
-
-{/* GLOW */}
-<div className="absolute top-0 left-0 w-72 h-72 bg-blue-500/10 blur-[120px] rounded-full"></div>
-
-{/* TOP */}
-<div className="relative z-10">
-<h1 className="text-[#f5c542] text-5xl md:text-7xl font-black tracking-tight">
+<div style={{ position: "relative" }}>
+<h1
+style={{
+fontSize: mobile
+? "52px"
+: "85px",
+fontWeight: "900",
+color: "#f5c542",
+margin: 0,
+}}
+>
 LCL
 </h1>
 
-<p className="text-[#9aa4b2] mt-2 text-base md:text-lg">
+<p
+style={{
+color: "#9aa4b2",
+fontSize: mobile
+? "15px"
+: "20px",
+marginTop: "10px",
+}}
+>
 Banque Privée Professionnelle
 </p>
 </div>
 
-{/* CENTER */}
-<div className="relative z-10 my-12">
-<h2 className="text-white text-4xl md:text-6xl font-bold leading-tight md:leading-[80px]">
+<div
+style={{
+marginTop: mobile
+? "40px"
+: "80px",
+position: "relative",
+}}
+>
+<h2
+style={{
+fontSize: mobile
+? "42px"
+: "72px",
+lineHeight: mobile
+? "52px"
+: "82px",
+margin: 0,
+fontWeight: "800",
+}}
+>
 Accédez à votre espace bancaire premium
 </h2>
 
-<p className="mt-6 text-[#9aa4b2] text-base md:text-lg leading-8 max-w-xl">
+<p
+style={{
+marginTop: "30px",
+color: "#9aa4b2",
+fontSize: mobile
+? "16px"
+: "22px",
+lineHeight: mobile
+? "30px"
+: "38px",
+maxWidth: "700px",
+}}
+>
 Gérez vos comptes professionnels,
 investissements, cartes premium et
-virements sécurisés depuis votre tableau
-de bord privé.
+virements sécurisés depuis votre
+tableau de bord privé.
 </p>
 </div>
 
-{/* FEATURES */}
-<div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div
+style={{
+display: "grid",
+gridTemplateColumns: mobile
+? "1fr"
+: "1fr 1fr",
+gap: "20px",
+marginTop: mobile
+? "40px"
+: "60px",
+}}
+>
+<div
+style={{
+background:
+"rgba(255,255,255,0.06)",
+border:
+"1px solid rgba(255,255,255,0.1)",
+padding: "25px",
+borderRadius: "22px",
+backdropFilter: "blur(20px)",
+}}
+>
+<div
+style={{
+fontSize: "35px",
+marginBottom: "15px",
+}}
+>
+🔒
+</div>
 
-<div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 hover:scale-[1.02] transition-all duration-300">
-<div className="text-3xl mb-3">🔒</div>
-
-<h3 className="text-white font-semibold text-lg">
+<h3
+style={{
+margin: 0,
+fontSize: "22px",
+}}
+>
 Connexion sécurisée
 </h3>
 
-<p className="text-[#9aa4b2] text-sm mt-2 leading-6">
-Chiffrement bancaire avancé et protection SSL.
+<p
+style={{
+color: "#9aa4b2",
+marginTop: "10px",
+lineHeight: "28px",
+}}
+>
+Protection SSL et chiffrement
+bancaire avancé.
 </p>
 </div>
 
-<div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 hover:scale-[1.02] transition-all duration-300">
-<div className="text-3xl mb-3">✔</div>
+<div
+style={{
+background:
+"rgba(255,255,255,0.06)",
+border:
+"1px solid rgba(255,255,255,0.1)",
+padding: "25px",
+borderRadius: "22px",
+backdropFilter: "blur(20px)",
+}}
+>
+<div
+style={{
+fontSize: "35px",
+marginBottom: "15px",
+}}
+>
+✔
+</div>
 
-<h3 className="text-white font-semibold text-lg">
+<h3
+style={{
+margin: 0,
+fontSize: "22px",
+}}
+>
 Support Premium
 </h3>
 
-<p className="text-[#9aa4b2] text-sm mt-2 leading-6">
-Assistance dédiée disponible 24h/24 et 7j/7.
+<p
+style={{
+color: "#9aa4b2",
+marginTop: "10px",
+lineHeight: "28px",
+}}
+>
+Assistance bancaire 24h/24 et
+7j/7.
 </p>
 </div>
-
 </div>
 </div>
 
-{/* RIGHT PANEL */}
-<div className="w-full lg:w-1/2 bg-[#08111f] p-8 md:p-14 flex items-center justify-center relative overflow-hidden">
+{/* RIGHT */}
+<div
+style={{
+flex: 1,
+background: "#08111f",
+padding: mobile
+? "35px 25px"
+: "80px 60px",
+color: "white",
+display: "flex",
+alignItems: "center",
+justifyContent: "center",
+position: "relative",
+}}
+>
+<div
+style={{
+position: "absolute",
+width: "350px",
+height: "350px",
+borderRadius: "50%",
+background:
+"rgba(37,99,235,0.12)",
+filter: "blur(120px)",
+bottom: "-120px",
+right: "-120px",
+}}
+/>
 
-{/* GLOW */}
-<div className="absolute bottom-0 right-0 w-80 h-80 bg-blue-500/10 blur-[140px] rounded-full"></div>
-
-<div className="relative z-10 w-full max-w-lg">
-
-{/* ICON */}
-<div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-[#194cff] to-[#3f6bff] flex items-center justify-center text-4xl shadow-[0_10px_50px_rgba(25,76,255,0.5)] mb-8 animate-pulse">
+<div
+style={{
+width: "100%",
+maxWidth: "500px",
+position: "relative",
+}}
+>
+<div
+style={{
+width: mobile
+? "80px"
+: "100px",
+height: mobile
+? "80px"
+: "100px",
+borderRadius: "50%",
+background:
+"linear-gradient(135deg,#194cff,#3f6bff)",
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+fontSize: mobile
+? "35px"
+: "45px",
+marginBottom: "35px",
+boxShadow:
+"0 10px 40px rgba(25,76,255,0.4)",
+}}
+>
 🔐
 </div>
 
-{/* TITLE */}
-<h1 className="text-white text-4xl md:text-6xl font-bold">
+<h1
+style={{
+fontSize: mobile
+? "48px"
+: "72px",
+margin: 0,
+fontWeight: "800",
+}}
+>
 Bienvenue
 </h1>
 
-<p className="text-[#9aa4b2] mt-4 text-base md:text-lg mb-10">
-Connectez-vous à votre espace sécurisé
+<p
+style={{
+color: "#9aa4b2",
+marginTop: "15px",
+marginBottom: "45px",
+fontSize: mobile
+? "16px"
+: "20px",
+}}
+>
+Connectez-vous à votre espace
+sécurisé
 </p>
 
-{/* EMAIL */}
-<div className="mb-6">
-<label className="block text-[#d0d3da] mb-3 text-sm md:text-base font-medium">
+<div
+style={{
+marginBottom: "25px",
+}}
+>
+<p
+style={{
+marginBottom: "12px",
+color: "#d0d3da",
+fontSize: "15px",
+}}
+>
 Identifiant bancaire
-</label>
+</p>
 
 <input
 type="text"
 placeholder="Votre identifiant"
 value={email}
-onChange={(e) => setEmail(e.target.value)}
-className="w-full bg-[#0d1728] border border-[#1d2b45] rounded-2xl px-5 py-4 text-white text-base md:text-lg outline-none focus:border-[#3f6bff] focus:ring-4 focus:ring-blue-500/20 transition-all duration-300"
+onChange={(e) =>
+setEmail(e.target.value)
+}
+style={{
+width: "100%",
+padding: mobile
+? "16px"
+: "20px",
+borderRadius: "18px",
+border:
+"1px solid #1d2b45",
+background: "#0d1728",
+color: "white",
+fontSize: mobile
+? "16px"
+: "18px",
+outline: "none",
+boxSizing: "border-box",
+}}
 />
 </div>
 
-{/* PASSWORD */}
-<div className="mb-6">
-<label className="block text-[#d0d3da] mb-3 text-sm md:text-base font-medium">
+<div
+style={{
+marginBottom: "25px",
+}}
+>
+<p
+style={{
+marginBottom: "12px",
+color: "#d0d3da",
+fontSize: "15px",
+}}
+>
 Mot de passe
-</label>
+</p>
 
 <input
 type="password"
 placeholder="Votre mot de passe"
 value={password}
-onChange={(e) => setPassword(e.target.value)}
-className="w-full bg-[#0d1728] border border-[#1d2b45] rounded-2xl px-5 py-4 text-white text-base md:text-lg outline-none focus:border-[#3f6bff] focus:ring-4 focus:ring-blue-500/20 transition-all duration-300"
+onChange={(e) =>
+setPassword(e.target.value)
+}
+style={{
+width: "100%",
+padding: mobile
+? "16px"
+: "20px",
+borderRadius: "18px",
+border:
+"1px solid #1d2b45",
+background: "#0d1728",
+color: "white",
+fontSize: mobile
+? "16px"
+: "18px",
+outline: "none",
+boxSizing: "border-box",
+}}
 />
 </div>
 
-{/* OPTIONS */}
-<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-
-<label className="flex items-center gap-2 text-[#9aa4b2] text-sm md:text-base cursor-pointer">
-<input
-type="checkbox"
-className="accent-blue-500"
-/>
+<div
+style={{
+display: "flex",
+justifyContent:
+"space-between",
+flexWrap: "wrap",
+gap: "15px",
+marginBottom: "40px",
+color: "#9aa4b2",
+fontSize: mobile
+? "14px"
+: "16px",
+}}
+>
+<span>
 Se souvenir de moi
-</label>
+</span>
 
-<span className="text-[#3f6bff] text-sm md:text-base hover:text-blue-300 cursor-pointer transition-all">
+<span
+style={{
+color: "#3f6bff",
+cursor: "pointer",
+}}
+>
 Mot de passe oublié ?
 </span>
 </div>
 
-{/* BUTTON */}
 <button
 onClick={handleLogin}
-className="w-full py-5 rounded-2xl bg-gradient-to-r from-[#194cff] to-[#3f6bff] text-white text-lg md:text-xl font-bold hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 shadow-[0_15px_40px_rgba(25,76,255,0.45)]"
+style={{
+width: "100%",
+padding: mobile
+? "18px"
+: "22px",
+borderRadius: "20px",
+border: "none",
+background:
+"linear-gradient(135deg,#194cff,#3f6bff)",
+color: "white",
+fontSize: mobile
+? "18px"
+: "22px",
+fontWeight: "bold",
+cursor: "pointer",
+boxShadow:
+"0 10px 40px rgba(25,76,255,0.4)",
+}}
 >
 Se connecter →
 </button>
 
-{/* FOOTER */}
-<div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-
-<div className="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-sm text-[#9aa4b2] backdrop-blur-xl">
-🔐 SSL Sécurisé
+<div
+style={{
+marginTop: "40px",
+display: "grid",
+gridTemplateColumns: mobile
+? "1fr"
+: "1fr 1fr 1fr",
+gap: "15px",
+}}
+>
+{[
+"🔐 SSL Sécurisé",
+"⚡ Support 24/7",
+"🛡 Protection Bancaire",
+].map((item) => (
+<div
+key={item}
+style={{
+background:
+"rgba(255,255,255,0.05)",
+border:
+"1px solid rgba(255,255,255,0.08)",
+borderRadius: "16px",
+padding: "16px",
+textAlign: "center",
+color: "#9aa4b2",
+fontSize: "14px",
+}}
+>
+{item}
 </div>
-
-<div className="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-sm text-[#9aa4b2] backdrop-blur-xl">
-⚡ Support 24/7
+))}
 </div>
-
-<div className="bg-white/5 border border-white/10 rounded-xl py-4 text-center text-sm text-[#9aa4b2] backdrop-blur-xl">
-🛡 Protection Bancaire
-</div>
-
-</div>
-
 </div>
 </div>
 </div>
